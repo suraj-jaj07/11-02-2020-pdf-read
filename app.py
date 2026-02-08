@@ -6,7 +6,15 @@ from google import genai
 # -----------------------------
 # Config
 # -----------------------------
-GOOGLE_API_KEY = os.getenv("API_KEY")
+# GOOGLE_API_KEY = os.getenv("API_KEY")
+
+
+# To this:
+if "API_KEY" in st.secrets:
+    GOOGLE_API_KEY = st.secrets["API_KEY"]
+else:
+    st.error("API_KEY not found in Streamlit Secrets!")
+    st.stop() # Prevents the app from running further without a key
 MODEL_ID = "gemini-2.5-flash"
 client = genai.Client(api_key=GOOGLE_API_KEY)
 
